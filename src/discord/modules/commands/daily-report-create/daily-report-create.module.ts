@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GuildsEntity } from '../../../entities/guilds.entity';
-import { DailyReportsChannelService } from './daily-reports-channel.service';
+import { DailyReportCreateService } from './daily-report-create.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([GuildsEntity])],
-  providers: [DailyReportsChannelService],
-  exports: [DailyReportsChannelService],
+  providers: [DailyReportCreateService],
+  exports: [DailyReportCreateService],
 })
-export class DailyReportsChannelModule {}
+export class DailyReportCreateModule {}

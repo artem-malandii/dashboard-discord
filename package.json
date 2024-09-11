@@ -37,6 +37,8 @@
     "cache-manager": "^5.4.0",
     "class-validator": "^0.14.1",
     "config": "^3.3.11",
+    "dayjs": "^1.11.13",
+    "discord-api-types": "^0.37.100",
     "discord.js": "^14.14.1",
     "necord": "^6.6.1",
     "node-schedule": "^2.1.1",

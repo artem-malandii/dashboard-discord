@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GuildsEntity } from './entities/guilds.entity';
 import { GuildService } from './services/guild.service';
 import { DailyReportsChannelModule } from './modules/commands/daily-report-channel/daily-reports-channel.module';
+import { DailyReportCreateModule } from './modules/commands/daily-report-create/daily-report-create.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { DailyReportsChannelModule } from './modules/commands/daily-report-chann
     }),
     TypeOrmModule.forFeature([GuildsEntity]),
     DailyReportsChannelModule,
+    DailyReportCreateModule,
   ],
   providers: [DiscordService, GuildService],
 })
