@@ -6,7 +6,7 @@ import { DiscordService } from './discord.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GuildsEntity } from './entities/guilds.entity';
 import { GuildService } from './services/guild.service';
-import { DailyReportsChannelModule } from './modules/commands/logs-channel/daily-reports-channel.module';
+import { DailyReportsChannelModule } from './modules/commands/daily-report-channel/daily-reports-channel.module';
 
 @Module({
   imports: [
