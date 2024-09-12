@@ -21,6 +21,7 @@ import * as dayjs from 'dayjs';
 import { Repository } from 'typeorm';
 import { GuildsEntity } from '../../../entities/guilds.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ReportEntity } from '../../../entities/report.entity';
 
 @Injectable()
 export class DailyReportCreateService {
@@ -28,6 +29,8 @@ export class DailyReportCreateService {
     private readonly client: Client,
     @InjectRepository(GuildsEntity)
     private readonly guildRepository: Repository<GuildsEntity>,
+    @InjectRepository(ReportEntity)
+    private readonly reportsRepository: Repository<ReportEntity>,
   ) {}
 
   @SlashCommand({
@@ -133,7 +136,20 @@ export class DailyReportCreateService {
       })
       .setFooter({ text: 'Keep Coding and take Care (Code&Care)' });
 
-    await dailyReportsChannel.send({ embeds: [embed] });
+    const dailyReportChannel = await dailyReportsChannel.send({
+      embeds: [embed],
+    });
+
+    await this.reportsRepository.save({
+      date: date,
+      link: dailyReportChannel.url,
+      report: report,
+      reporterId: interaction.user.id,
+      project: projectName,
+      guild: {
+        guildId: guildId,
+      },
+    });
 
     return interaction.reply({
       content: 'Your report has been successfully created',

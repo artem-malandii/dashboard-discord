@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { ReportEntity } from './report.entity';
 
 @Entity({ name: 'guilds' })
 export class GuildsEntity {
@@ -13,4 +14,7 @@ export class GuildsEntity {
 
   @Column()
   ownerId: string;
+
+  @OneToMany(() => ReportEntity, (report) => report.guild)
+  reports: ReportEntity[];
 }
