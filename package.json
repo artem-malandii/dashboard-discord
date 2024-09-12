@@ -24,6 +24,7 @@
     "db:migrate": "npm run typeorm migration:run"
   },
   "dependencies": {
+    "@discordjs/rest": "^2.4.0",
     "@nestjs/axios": "^3.0.2",
     "@nestjs/cache-manager": "^2.2.1",
     "@nestjs/common": "^10.0.0",
@@ -35,6 +36,7 @@
     "@nestjs/typeorm": "^10.0.2",
     "axios": "^1.6.7",
     "cache-manager": "^5.4.0",
+    "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "config": "^3.3.11",
     "dayjs": "^1.11.13",
