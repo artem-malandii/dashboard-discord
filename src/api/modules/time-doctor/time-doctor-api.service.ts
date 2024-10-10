@@ -6,6 +6,7 @@ import {
   IAuthenticateResponse,
 } from './interfaces/authenticate.interface';
 import { FilesQueryParams } from './interfaces/files.interface';
+import { GetFilesQueryDTO } from './dto/get-files-query.dto';
 
 @Injectable()
 export class TimeDoctorApiService {
@@ -35,11 +36,28 @@ export class TimeDoctorApiService {
     }
   }
 
-  public async getFiles() {
+  public async getFiles(queryDto: GetFilesQueryDTO) {
     try {
+      const userIds =
+        queryDto.userIds && queryDto.userIds?.length > 0
+          ? queryDto.userIds?.join(',')
+          : undefined;
+
+      if (!userIds) {
+        return {
+          data: [],
+          paging: {
+            cur: 0,
+            limit: 200,
+            nItems: 0,
+            totalCount: 0,
+          },
+        };
+      }
+
       const queryParams: FilesQueryParams = {
         company: process.env.TIME_DOCTOR_COMPANY_ID || '',
-        user: 'Zvv7IzEboLpAVxWQ', // TODO: get user id from frontend
+        user: userIds,
       };
       const filteredParams: Record<string, string> = Object.fromEntries(
         Object.entries(queryParams).filter(([, v]) => v !== undefined) as [
@@ -63,6 +81,24 @@ export class TimeDoctorApiService {
       return response.data;
     } catch (e) {
       console.log('Unable to get files: ', e);
+    }
+  }
+
+  public async getUsers() {
+    try {
+      const url = `${process.env.TIME_DOCTOR_API_URL}/users?company=${process.env.TIME_DOCTOR_COMPANY_ID || ''}`;
+      const response = await firstValueFrom(
+        this.httpService.get(url, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${this.timeDoctorApiToken}`,
+          },
+        }),
+      );
+
+      return response.data;
+    } catch (e) {
+      console.log('Unable to get users: ', e);
     }
   }
 }

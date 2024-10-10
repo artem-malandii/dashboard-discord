@@ -1,12 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { TimeDoctorService } from './time-doctor.service';
+import { GetFilesQueryDTO } from './dto/get-files-query.dto';
 
 @Controller('time-doctor')
 export class TimeDoctorController {
   constructor(private readonly timeDoctorService: TimeDoctorService) {}
 
   @Get('files')
-  async getFiles() {
-    return await this.timeDoctorService.getFiles();
+  async getFiles(@Query() queryDto: GetFilesQueryDTO) {
+    return await this.timeDoctorService.getFiles(queryDto);
+  }
+
+  @Get('users')
+  async getUsers() {
+    return await this.timeDoctorService.getUsers();
   }
 }
