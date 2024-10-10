@@ -9,4 +9,8 @@ export class GetFilesQueryDTO {
     typeof value === 'string' ? value.split(',') : value,
   )
   userIds?: string[];
+
+  @IsOptional()
+  @IsString()
+  date?: string;
 }

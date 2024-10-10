@@ -58,13 +58,17 @@ export class TimeDoctorApiService {
       const queryParams: FilesQueryParams = {
         company: process.env.TIME_DOCTOR_COMPANY_ID || '',
         user: userIds,
+        'filter[date]': queryDto.date,
       };
+
       const filteredParams: Record<string, string> = Object.fromEntries(
         Object.entries(queryParams).filter(([, v]) => v !== undefined) as [
           string,
           string,
         ][],
       );
+
+      console.log(filteredParams);
 
       const query = new URLSearchParams(filteredParams).toString();
       const url = `${process.env.TIME_DOCTOR_API_URL}/files?${query}`;
