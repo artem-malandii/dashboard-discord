@@ -68,8 +68,6 @@ export class TimeDoctorApiService {
         ][],
       );
 
-      console.log(filteredParams);
-
       const query = new URLSearchParams(filteredParams).toString();
       const url = `${process.env.TIME_DOCTOR_API_URL}/files?${query}`;
 
@@ -103,6 +101,24 @@ export class TimeDoctorApiService {
       return response.data;
     } catch (e) {
       console.log('Unable to get users: ', e);
+    }
+  }
+
+  public async getProjects() {
+    try {
+      const url = `${process.env.TIME_DOCTOR_API_URL}/projects?company=${process.env.TIME_DOCTOR_COMPANY_ID || ''}`;
+      const response = await firstValueFrom(
+        this.httpService.get(url, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${this.timeDoctorApiToken}`,
+          },
+        }),
+      );
+
+      return response.data;
+    } catch (e) {
+      console.log('Unable to get projects: ', e);
     }
   }
 }

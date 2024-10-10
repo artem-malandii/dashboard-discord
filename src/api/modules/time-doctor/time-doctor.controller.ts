@@ -15,4 +15,9 @@ export class TimeDoctorController {
   async getUsers() {
     return await this.timeDoctorService.getUsers();
   }
+
+  @Get('projects')
+  async getProjects() {
+    return await this.timeDoctorService.getProjects();
+  }
 }

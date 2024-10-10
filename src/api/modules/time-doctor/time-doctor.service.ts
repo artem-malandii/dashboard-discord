@@ -15,4 +15,9 @@ export class TimeDoctorService {
     const users = await this.timeDoctorApiService.getUsers();
     return users;
   }
+
+  public async getProjects() {
+    const projects = await this.timeDoctorApiService.getProjects();
+    return projects;
+  }
 }
